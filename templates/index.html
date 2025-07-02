@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Classificador de Emails</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='media/favicon-32x32-1.png') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='media/logo-bg.png') }}" alt="Logo" class="logo" >
+        </div>
+        <h1>Classificador de Emails com IA</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="email_text">Digite ou cole o texto do email:</label>
+            <textarea name="email_text" placeholder="Ex: Prezado, gostaria de saber sobre..."></textarea>
+
+            <label for="email_file">Ou envie um arquivo (.txt ou .pdf):</label>
+            <input type="file" name="email_file" accept=".txt,.pdf">
+
+            <button id="submitBtn" type="submit">Classificar Email</button>
+        </form>
+
+        {% if result %}
+        <div class="result fade-in">
+            <div class="category">
+                Categoria:
+                {% if result.category == "Produtivo" %}
+                    <span>{{ result.category }}</span>
+                {% else %}
+                    <span class="improdutivo">{{ result.category }}</span>
+                {% endif %}
+            </div>
+            <p><strong>Email:</strong><br>{{ result.text }}</p>
+            <p><strong>Resposta:</strong><br>{{ result.response }}</p>
+        </div>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
