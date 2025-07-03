@@ -5,3 +5,4 @@ joblib
 transformers
 torch
 pandas
+gunicorn
